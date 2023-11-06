@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as yaml from "js-yaml";
-import handleSelectTranslationFile from "../helpers/handle-select-translation-file";
-import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path-from-selected-file-path";
+import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path";
 import { Message } from "../feedback/messages";
 
 export default function registerCopyTranslationValueCommand(

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-export default function registerGoToTranslationCodelens(
+export default function registerHandlebarsCodelens(
   context: vscode.ExtensionContext
 ) {
   vscode.languages.registerCodeLensProvider("handlebars", {

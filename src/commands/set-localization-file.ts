@@ -1,7 +1,5 @@
 import * as vscode from "vscode";
-import handleSelectTranslationFile, {
-  setDefaultLocalizationFile,
-} from "../helpers/handle-select-translation-file";
+import { setDefaultLocalizationFile } from "../helpers/handle-default-localization-file";
 import { Message } from "../feedback/messages";
 
 export default function registerSetDefaultLocalizationFileCommand(

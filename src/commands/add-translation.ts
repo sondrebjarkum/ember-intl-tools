@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { updateTranslationsFile } from "../helpers/update-translations";
-import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path-from-selected-file-path";
+import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path";
 
 export default function registerAddTranslationCommand(
   context: vscode.ExtensionContext

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { Message } from "../feedback/messages";
-import { getDefaultLocalizationFileName } from "./handle-select-translation-file";
+import { getDefaultLocalizationFileName } from "./handle-default-localization-file";
 
 export const TranslationsFileName = "nb-no.yml";
 
