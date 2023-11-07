@@ -20,7 +20,20 @@ export default function registerAddTranslationCommand(
 
       if (editor) {
         const selection = editor.selection;
-        const translationValue = editor.document.getText(selection);
+        let translationValue = editor.document.getText(selection);
+
+        if (translationValue == "") {
+          const translation = await vscode.window.showInputBox({
+            placeHolder: "Enter translation sentence",
+            prompt: "No selected text, write out your translation",
+          });
+
+          if (!translation) {
+            return;
+          }
+
+          translationValue = translation;
+        }
 
         const translationKey = await vscode.window.showInputBox({
           placeHolder: "Enter translation key",
