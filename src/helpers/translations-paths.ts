@@ -10,9 +10,7 @@ export default async function getTranslationsPathFromSelectedFile(
   const localization = await getDefaultLocalizationFileName(context);
 
   if (editor) {
-    const document = editor.document;
-
-    const filePath = document.fileName;
+    const filePath = editor.document.fileName;
 
     const translationsPath = getTranslationsPathFromCurrentDirectory(filePath);
 
@@ -47,9 +45,7 @@ export function getAllLocalizationFilesPaths() {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {
-    const document = editor.document;
-
-    const filePath = document.fileName;
+    const filePath = editor.document.fileName;
 
     const translationsPath = getTranslationsPathFromCurrentDirectory(filePath);
 

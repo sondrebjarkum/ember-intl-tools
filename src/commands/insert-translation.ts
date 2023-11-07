@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { Message } from "../feedback/messages";
 
 export default function registerInsertTranslationCommand(
   context: vscode.ExtensionContext
@@ -25,6 +26,8 @@ export default function registerInsertTranslationCommand(
             editBuilder.replace(selection, `{{t '${translationKey}'}}`);
           });
         }
+      } else {
+        Message.error("No active document found");
       }
     }
   );
