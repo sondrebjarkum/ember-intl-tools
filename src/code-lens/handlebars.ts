@@ -9,7 +9,7 @@ export default function registerHandlebarsCodelens(
       const text = document.getText();
 
       // Regular expression to match the pattern {{t "your-translation"}}
-      const regex = /{{t "(.*)"}}/g;
+      const regex = /{{t ["'](.*)["']}}/g;
       let match;
 
       while ((match = regex.exec(text))) {

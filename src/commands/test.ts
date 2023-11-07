@@ -1,8 +1,6 @@
 import * as vscode from "vscode";
 import { Message } from "../feedback/messages";
 
-const TranslationsFileName = "nb-no.yml";
-
 export default function registerTestCommand(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand(
     "ember-intl-tools.test",

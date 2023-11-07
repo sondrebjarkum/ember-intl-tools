@@ -2,11 +2,39 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import * as yaml from "js-yaml";
 import { Message } from "../feedback/messages";
+import { getFileNameFromPath } from "./translations-paths";
+
+const cleanup = (context: vscode.ExtensionContext) => {
+  context.globalState.update("yesToAllRewrites", false);
+};
+
+export async function updateMultipleTranslationFiles(
+  filePaths: string[],
+  translationKey: string,
+  translationValue: string,
+  context: vscode.ExtensionContext
+) {
+  try {
+    for (const path of filePaths) {
+      await updateTranslationsFile(
+        path,
+        translationKey,
+        translationValue,
+        context
+      );
+    }
+  } catch (error: any) {
+    throw new Error(error.message);
+  } finally {
+    cleanup(context);
+  }
+}
 
 export async function updateTranslationsFile(
   filePath: string,
   translationKey: string,
-  translationValue: string
+  translationValue: string,
+  context: vscode.ExtensionContext
 ) {
   try {
     // Read the existing YAML content
@@ -27,15 +55,25 @@ export async function updateTranslationsFile(
     }
 
     if (currentLevel[keys[keys.length - 1]]) {
-      const response = await vscode.window.showInformationMessage(
-        "Overwrite existing translation?",
-        { modal: true },
-        "Yes",
-        "No"
-      );
+      const yesToAllRewrites =
+        context.globalState.get<boolean>("yesToAllRewrites");
 
-      if (!response || response === "No") {
-        throw new Error("No change made");
+      if (!yesToAllRewrites) {
+        const response = await vscode.window.showInformationMessage(
+          `Overwrite existing translation in ${getFileNameFromPath(filePath)}?`,
+          { modal: true },
+          "Yes",
+          "No",
+          "Yes to all rewrites"
+        );
+
+        if (!response || response === "No") {
+          return;
+        }
+
+        if (response === "Yes to all rewrites") {
+          await context.globalState.update("yesToAllRewrites", true);
+        }
       }
     }
 
@@ -51,9 +89,8 @@ export async function updateTranslationsFile(
 
     // Write the updated YAML back to the file
     fs.writeFileSync(filePath, updatedYAML, "utf8");
-  } catch (error) {
-    const err = error as any;
-    Message.error(`Error updating YAML file: ${err.message}`);
-    throw new Error(err.message);
+  } catch (error: any) {
+    Message.error(`Error updating YAML file: ${error.message}`);
+    throw new Error(error.message);
   }
 }

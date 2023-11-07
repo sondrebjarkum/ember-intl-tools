@@ -31,9 +31,32 @@
       },
       {
         "command": "ember-intl-tools.setDefaultLocalizationFile",
-        "title": "Intl: Set Default Localization File"
+        "title": "Intl Settings: Set Default Localization File"
+      },
+      {
+        "command": "ember-intl-tools.setAddTranslationsToAllFiles",
+        "title": "Intl Settings: Enable/Disable Add Translation To All Locale Files"
+      },
+      {
+        "command": "ember-intl-tools.quickConfigure",
+        "title": "Intl Settings: Go Through Quick Configuration"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Intl",
+      "properties": {
+        "ember-intl-tools.addTranslationsToAllFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "If enabled, the extension will scan for all available locales in the '/translations' directory and apply the specified translation to each of them (wont translate for you)"
+        },
+        "ember-intl-tools.defaultLocalizationFile": {
+          "type": "string",
+          "default": "no-nb.yml",
+          "description": "Set default localization file to add translations to"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

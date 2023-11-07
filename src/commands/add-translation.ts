@@ -1,7 +1,13 @@
 import * as vscode from "vscode";
-import { updateTranslationsFile } from "../helpers/update-translations";
-import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path";
+import {
+  updateMultipleTranslationFiles,
+  updateTranslationsFile,
+} from "../helpers/update-translations";
+import getTranslationsPathFromSelectedFile, {
+  getAllLocalizationFilesPaths,
+} from "../helpers/translations-paths";
 import { Message } from "../feedback/messages";
+import { Configuration } from "../helpers/configuration";
 
 export default function registerAddTranslationCommand(
   context: vscode.ExtensionContext
@@ -9,7 +15,6 @@ export default function registerAddTranslationCommand(
   const disposable = vscode.commands.registerCommand(
     "ember-intl-tools.addTranslation",
     async () => {
-      // let chosenPath = await handleSelectTranslationFile(context, true);
       const chosenPath = await getTranslationsPathFromSelectedFile(context);
 
       if (!chosenPath) {
@@ -22,7 +27,7 @@ export default function registerAddTranslationCommand(
         const selection = editor.selection;
         let translationValue = editor.document.getText(selection);
 
-        if (translationValue == "") {
+        if (translationValue === "") {
           const translation = await vscode.window.showInputBox({
             placeHolder: "Enter translation sentence",
             prompt: "No selected text, write out your translation",
@@ -44,23 +49,33 @@ export default function registerAddTranslationCommand(
           return;
         }
 
-        if (translationKey && translationValue) {
-          if (chosenPath) {
-            try {
-              await updateTranslationsFile(
-                chosenPath,
-                translationKey,
-                translationValue
-              );
+        if (translationKey && translationValue && chosenPath) {
+          const addTranslationToAllFiles = Configuration.get<boolean>(
+            "addTranslationsToAllFiles"
+          );
 
-              editor.edit((editBuilder) => {
-                editBuilder.replace(selection, `{{t '${translationKey}'}}`);
-              });
-            } catch (error) {
-              const err = error as any;
-              return Message.info(err.message);
+          if (addTranslationToAllFiles) {
+            const allFilesPaths = getAllLocalizationFilesPaths();
+            if (allFilesPaths) {
+              updateMultipleTranslationFiles(
+                allFilesPaths,
+                translationKey,
+                translationValue,
+                context
+              );
             }
+          } else {
+            await updateTranslationsFile(
+              chosenPath,
+              translationKey,
+              translationValue,
+              context
+            );
           }
+
+          editor.edit((editBuilder) => {
+            editBuilder.replace(editor.selection, `{{t '${translationKey}'}}`);
+          });
         }
       }
     }

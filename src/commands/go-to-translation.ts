@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path";
+import getTranslationsPathFromSelectedFile from "../helpers/translations-paths";
 import { Message } from "../feedback/messages";
 
 export default function registerGoToTranslationCommand(
