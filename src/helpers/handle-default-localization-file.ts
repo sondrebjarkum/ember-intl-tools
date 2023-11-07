@@ -16,7 +16,7 @@ export async function getDefaultLocalizationFileName(
 
   if (!localization) {
     await vscode.commands.executeCommand(
-      "ember-intl-gen.setDefaultLocalizationFile"
+      "ember-intl-tools.setDefaultLocalizationFile"
     );
 
     return await getDefaultLocalizationFileName(context);

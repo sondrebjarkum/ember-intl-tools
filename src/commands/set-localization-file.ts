@@ -6,7 +6,7 @@ export default function registerSetDefaultLocalizationFileCommand(
   context: vscode.ExtensionContext
 ) {
   const disposable = vscode.commands.registerCommand(
-    "ember-intl-gen.setDefaultLocalizationFile",
+    "ember-intl-tools.setDefaultLocalizationFile",
     async () => {
       const response = await vscode.window.showInformationMessage(
         "Set default localization file to use",

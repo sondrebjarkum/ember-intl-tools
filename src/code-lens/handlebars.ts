@@ -23,14 +23,14 @@ export default function registerHandlebarsCodelens(
         const goToTranslation = new vscode.CodeLens(range);
         goToTranslation.command = {
           title: `Intl: Go to`,
-          command: "ember-intl-gen.goToTranslation",
+          command: "ember-intl-tools.goToTranslation",
           arguments: [translationString],
         };
 
         const copyTranslationValue = new vscode.CodeLens(range);
         copyTranslationValue.command = {
           title: `Copy`,
-          command: "ember-intl-gen.copyTranslationValue",
+          command: "ember-intl-tools.copyTranslationValue",
           arguments: [translationString],
         };
 

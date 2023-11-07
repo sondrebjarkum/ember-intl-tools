@@ -8,7 +8,7 @@ export default function registerCopyTranslationValueCommand(
   context: vscode.ExtensionContext
 ) {
   const disposable = vscode.commands.registerCommand(
-    "ember-intl-gen.copyTranslationValue",
+    "ember-intl-tools.copyTranslationValue",
     async (...args: any[]) => {
       // const chosenPath = await handleSelectTranslationFile(context, true);
       const chosenPath = await getTranslationsPathFromSelectedFile(context);
@@ -47,7 +47,7 @@ export default function registerCopyTranslationValueCommand(
                   `Key "${key}" in path "${selectedTranslation}" not found`
                 );
               }
-              result = `${key}: ${currentLevel[key]}`;
+              result = `${currentLevel[key]}`;
               currentLevel = currentLevel[key];
             }
 

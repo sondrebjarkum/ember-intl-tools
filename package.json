@@ -1,6 +1,6 @@
 {
-  "name": "ember-intl-gen",
-  "displayName": "ember-intl-gen",
+  "name": "ember-intl-tools",
+  "displayName": "ember-intl-tools",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -14,31 +14,31 @@
   "contributes": {
     "commands": [
       {
-        "command": "ember-intl-gen.test",
+        "command": "ember-intl-tools.test",
         "title": "Intl: TEST"
       },
       {
-        "command": "ember-intl-gen.addTranslation",
+        "command": "ember-intl-tools.addTranslation",
         "title": "Intl: Add Translation"
       },
       {
-        "command": "ember-intl-gen.copyTranslationPath",
+        "command": "ember-intl-tools.copyTranslationPath",
         "title": "Intl: Copy Translation Path"
       },
       {
-        "command": "ember-intl-gen.goToTranslation",
+        "command": "ember-intl-tools.goToTranslation",
         "title": "Intl: Go To Translation"
       },
       {
-        "command": "ember-intl-gen.setTranslationFile",
+        "command": "ember-intl-tools.setTranslationFile",
         "title": "Intl: Set Translation File"
       },
       {
-        "command": "ember-intl-gen.resetTranslationFile",
+        "command": "ember-intl-tools.resetTranslationFile",
         "title": "Intl: Reset Selected Translation File"
       },
       {
-        "command": "ember-intl-gen.setDefaultLocalizationFile",
+        "command": "ember-intl-tools.setDefaultLocalizationFile",
         "title": "Intl: Set Default Localization File"
       }
     ]

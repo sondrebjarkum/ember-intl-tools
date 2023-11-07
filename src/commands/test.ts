@@ -5,7 +5,7 @@ const TranslationsFileName = "nb-no.yml";
 
 export default function registerTestCommand(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand(
-    "ember-intl-gen.test",
+    "ember-intl-tools.test",
     async () => {
       Message.error("Error working fine");
       Message.info("Info working fine");

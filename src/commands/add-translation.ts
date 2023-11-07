@@ -6,7 +6,7 @@ export default function registerAddTranslationCommand(
   context: vscode.ExtensionContext
 ) {
   const disposable = vscode.commands.registerCommand(
-    "ember-intl-gen.addTranslation",
+    "ember-intl-tools.addTranslation",
     async () => {
       // let chosenPath = await handleSelectTranslationFile(context, true);
       const chosenPath = await getTranslationsPathFromSelectedFile(context);
