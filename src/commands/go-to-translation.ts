@@ -45,26 +45,11 @@ export default function registerGoToTranslationCommand(
             let yamlContentLines = yamlContent.split("\n");
             let keyLocation = -1;
 
-            for (let i = 0; i < yamlContentLines.length; i++) {
-              //nå er vi på rotnivå, sjekk at det ikke er noen mellomrom
-              if (yamlContentLines[i].includes(" ")) {
-                yamlContentLines[i] = replaceAllChars(yamlContentLines[i]);
-                continue;
-              }
-
-              //på rotnivå, men inneholder ikke rotkey
-              if (!yamlContentLines[i].includes(rootKey)) {
-                yamlContentLines[i] = replaceAllChars(yamlContentLines[i]);
-                continue;
-              }
-
-              //nå har jeg funnet riktig rot!
-              keyLocation = findTranslationKey(
-                i,
-                yamlContentLines,
-                translationKeys
-              );
-            }
+            keyLocation = findTranslationKey(
+              0,
+              yamlContentLines,
+              translationKeys
+            );
 
             if (keyLocation === -1) {
               return Message.error("Could not find translation key");
@@ -80,9 +65,6 @@ export default function registerGoToTranslationCommand(
             );
             translationFile.revealRange(new vscode.Range(position, position));
           } catch (error) {
-            // throw new Error(
-            //   `Could not find translation file. Try running "Intl: Set Default Localization File"`
-            // );
             return Message.error(
               `Could not find translation file "${chosenPath
                 .split("/")
@@ -109,20 +91,22 @@ function findTranslationKey(
   translationKeys: string[]
 ) {
   let to = rootIndex;
-  let transKeyIndex = 1; //starter på den etter root
+  let transKeyIndex = 0;
 
   for (let i = rootIndex; i < yamlLines.length; i++) {
-    // går gjennom yaml linje for linje fra root key
     to = i;
-    const transKey = makeKey(transKeyIndex, translationKeys[transKeyIndex]); // "  detail:" "    something:"
+    const translationKey = makeKey(
+      transKeyIndex,
+      translationKeys[transKeyIndex]
+    );
     const yamlLine = yamlLines[i];
 
-    if (indents(yamlLine) !== indents(transKey)) {
+    if (indents(yamlLine) !== indents(translationKey)) {
       yamlLines[i] = replaceAllChars(yamlLine);
       continue;
     }
 
-    if (!yamlLine.includes(transKey)) {
+    if (!yamlLine.includes(translationKey)) {
       yamlLines[i] = replaceAllChars(yamlLine);
       continue;
     }
@@ -134,7 +118,14 @@ function findTranslationKey(
     yamlLines[i] = replaceAllChars(yamlLine);
     transKeyIndex++;
   }
+
+  if (to === yamlLines.length - 1) {
+    //reached end of yaml with no matches
+    return -1;
+  }
+
   const keyLocation = yamlLines.join("\n").indexOf(yamlLines[to]);
+
   return keyLocation;
 }
 
