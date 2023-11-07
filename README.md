@@ -1,32 +1,34 @@
+# Ember Intl Tools for Visual Studio Code
+
+Tired of manually adding translations? Me too... Ember Intl Tools is an extension that enhances your development workflow when working with Ember.js internationalization (i18n) in Visual Studio Code.
+
+![gif](./demonstration.gif)
+
 ## Features
 
-Adds tooling for dealing with EmberJS Intl.
+- **Adding Translations**: Quickly add translations thoughout locales and auto insert handlebars markup.
+- **Inserting Handlebar Translations**: Streamline the process of inserting handlebar translations.
+- **Looking Up Translations**: Efficiently find translations, both with commands and inline in handlebars.
+- **Copying Translations**: Conveniently copy translations, also from inline handlebars.
 
-Adds commands to:
+## Configuration
 
-- add translations
-- insert handlebar translation
-- lookup translations (also inline in handlebars)
-- copy translations (also inline in handlebars)
+It is recommended to run the command `Intl Tools: Quick Configuration` for first time setup.
 
-## Configuring
+You can also configure the extension by pressing <kbd>Cmd</kbd> + <kbd>,</kbd> or <kbd>Ctrl</kbd> + <kbd>,</kbd> and search for `Ember-intl-tools`.
 
-To access configurations press <kbd>Cmd</kbd> + <kbd>,</kbd> or <kbd>Ctrl</kbd> + <kbd>,</kbd> and search for `Ember-intl-tools` or run the command `Intl: Configure`
+### Settings
 
-#### Add Translation To All Files (default false)
+#### Add Translation To All Files (Default: false)
 
-If enabled, the extension will scan for all available locales in the '/translations' directory and apply the specified translation to each of them (wont translate for you)
+- When enabled, the extension scans for all available locales in the '/translations' directory and applies the specified translation to each of them. Please note that it does not perform the translation for you.
 
-#### Set Deafault Locale File (default no-nb.yml)
+#### Set Default Locale File (Default: no-nb.yml)
 
-Set default locale file which to add translations to. This has to be set and defaults to "no-nb.yml".
+- Set the default locale file to which translations will be added. The default is "no-nb.yml."
 
 ## Limitations
 
-Not able to do lookups on translations such as this: `{{t "qrscanner.error" error=this.error}}`
+Please be aware of the following limitation:
 
-## Release Notes
-
-### 1.0.0
-
-Initial release
+- The extension does not support lookups on translations within constructs like `{{t "qrscanner.error" error=this.error}}`.
