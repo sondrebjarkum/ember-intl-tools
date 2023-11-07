@@ -15,31 +15,31 @@
     "commands": [
       {
         "command": "ember-intl-tools.test",
-        "title": "Intl: TEST"
+        "title": "Intl Tools: TEST"
       },
       {
         "command": "ember-intl-tools.addTranslation",
-        "title": "Intl: Add Translation"
+        "title": "Intl Tools: Add Translation"
       },
       {
         "command": "ember-intl-tools.insertTranslation",
-        "title": "Intl: Insert Translation"
+        "title": "Intl Tools: Insert Translation"
       },
       {
         "command": "ember-intl-tools.goToTranslation",
-        "title": "Intl: Go To Translation"
+        "title": "Intl Tools: Go To Translation"
       },
       {
         "command": "ember-intl-tools.setDefaultLocalizationFile",
-        "title": "Intl Settings: Set Default Localization File"
+        "title": "Intl Tools: Set Default Localization File"
       },
       {
         "command": "ember-intl-tools.setAddTranslationsToAllFiles",
-        "title": "Intl Settings: Enable/Disable Add Translation To All Locale Files"
+        "title": "Intl Tools: Enable/Disable Add Translation To All Locale Files"
       },
       {
         "command": "ember-intl-tools.quickConfigure",
-        "title": "Intl Settings: Go Through Quick Configuration"
+        "title": "Intl Tools: Quick Configuration"
       }
     ],
     "configuration": {
