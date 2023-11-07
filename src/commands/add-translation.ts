@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { updateTranslationsFile } from "../helpers/update-translations";
 import getTranslationsPathFromSelectedFile from "../helpers/get-translations-path";
+import { Message } from "../feedback/messages";
 
 export default function registerAddTranslationCommand(
   context: vscode.ExtensionContext
@@ -33,16 +34,18 @@ export default function registerAddTranslationCommand(
         if (translationKey && translationValue) {
           if (chosenPath) {
             try {
-              updateTranslationsFile(
+              await updateTranslationsFile(
                 chosenPath,
                 translationKey,
                 translationValue
               );
+
               editor.edit((editBuilder) => {
                 editBuilder.replace(selection, `{{t '${translationKey}'}}`);
               });
             } catch (error) {
-              console.error(error);
+              const err = error as any;
+              return Message.info(err.message);
             }
           }
         }

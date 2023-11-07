@@ -22,20 +22,12 @@
         "title": "Intl: Add Translation"
       },
       {
-        "command": "ember-intl-tools.copyTranslationPath",
-        "title": "Intl: Copy Translation Path"
+        "command": "ember-intl-tools.insertTranslation",
+        "title": "Intl: Insert Translation"
       },
       {
         "command": "ember-intl-tools.goToTranslation",
         "title": "Intl: Go To Translation"
-      },
-      {
-        "command": "ember-intl-tools.setTranslationFile",
-        "title": "Intl: Set Translation File"
-      },
-      {
-        "command": "ember-intl-tools.resetTranslationFile",
-        "title": "Intl: Reset Selected Translation File"
       },
       {
         "command": "ember-intl-tools.setDefaultLocalizationFile",

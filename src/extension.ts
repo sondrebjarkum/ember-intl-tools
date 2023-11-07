@@ -5,10 +5,12 @@ import registerGoToTranslationCommand from "./commands/go-to-translation";
 import registerHandlebarsCodelens from "./code-lens/handlebars";
 import registerTestCommand from "./commands/test";
 import registerSetDefaultLocalizationFileCommand from "./commands/set-localization-file";
+import registerInsertTranslationCommand from "./commands/insert-translation";
 
 export function activate(context: vscode.ExtensionContext) {
   /* Commands */
   registerAddTranslationCommand(context);
+  registerInsertTranslationCommand(context);
   registerCopyTranslationValueCommand(context);
   registerGoToTranslationCommand(context);
   registerSetDefaultLocalizationFileCommand(context);
