@@ -11,6 +11,8 @@ Tired of manually adding translations? Me too... Ember Intl Tools is an extensio
 - **Looking Up Translations**: Efficiently find translations, both with commands and inline in handlebars.
 - **Copying Translations**: Conveniently copy translations, also from inline handlebars.
 
+Full list of features and how to use them will be added soon.
+
 ## Configuration
 
 It is recommended to run the command `Intl Tools: Quick Configuration` for first time setup.
@@ -32,3 +34,11 @@ You can also configure the extension by pressing <kbd>Cmd</kbd> + <kbd>,</kbd> o
 Please be aware of the following limitation:
 
 - The extension does not support lookups on translations within constructs like `{{t "qrscanner.error" error=this.error}}`.
+
+## Running locally
+
+1. Pull this repository.
+1. Install the required dependencies by running `npm install`.
+1. Start the application by pressing <kbd>F5</kbd>.
+
+The second VSCode window now runs this extension.
