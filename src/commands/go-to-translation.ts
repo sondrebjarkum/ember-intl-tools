@@ -42,7 +42,7 @@ export default function registerGoToTranslationCommand(
 
             const rootKey = translationKeys[0];
 
-            const yamlContentLines = yamlContent.split("\n");
+            let yamlContentLines = yamlContent.split("\n");
             let keyLocation = -1;
 
             for (let i = 0; i < yamlContentLines.length; i++) {
@@ -59,19 +59,11 @@ export default function registerGoToTranslationCommand(
               }
 
               //nå har jeg funnet riktig rot!
-              for (let j = i; j < yamlContentLines.length; j++) {
-                //nå bare ser jeg etter første treff som stemmer med siste key
-                if (
-                  yamlContentLines[j].includes(
-                    translationKeys[translationKeys.length - 1] + ":"
-                  )
-                ) {
-                  keyLocation = yamlContentLines
-                    .join("\n")
-                    .indexOf(yamlContentLines[j]);
-                  break;
-                }
-              }
+              keyLocation = findTranslationKey(
+                i,
+                yamlContentLines,
+                translationKeys
+              );
             }
 
             if (keyLocation === -1) {
@@ -110,3 +102,50 @@ export default function registerGoToTranslationCommand(
 function replaceAllChars(text: string, symbol: string = "#") {
   return text.replace(/./g, symbol);
 }
+
+function findTranslationKey(
+  rootIndex: number,
+  yamlLines: string[],
+  translationKeys: string[]
+) {
+  let to = rootIndex;
+  let transKeyIndex = 1; //starter på den etter root
+
+  for (let i = rootIndex; i < yamlLines.length; i++) {
+    // går gjennom yaml linje for linje fra root key
+    to = i;
+    const transKey = makeKey(transKeyIndex, translationKeys[transKeyIndex]); // "  detail:" "    something:"
+    const yamlLine = yamlLines[i];
+
+    if (indents(yamlLine) !== indents(transKey)) {
+      yamlLines[i] = replaceAllChars(yamlLine);
+      continue;
+    }
+
+    if (!yamlLine.includes(transKey)) {
+      yamlLines[i] = replaceAllChars(yamlLine);
+      continue;
+    }
+
+    if (translationKeys.length - 1 === transKeyIndex) {
+      break;
+    }
+
+    yamlLines[i] = replaceAllChars(yamlLine);
+    transKeyIndex++;
+  }
+  const keyLocation = yamlLines.join("\n").indexOf(yamlLines[to]);
+  return keyLocation;
+}
+
+const indents = (s: string) => {
+  const spaces = s.match(/^\s*/);
+  if (!spaces) {
+    return 0;
+  }
+  return spaces[0].length;
+};
+
+const makeKey = (indents: number, s: string) => {
+  return " ".repeat(indents * 2) + s + ":";
+};

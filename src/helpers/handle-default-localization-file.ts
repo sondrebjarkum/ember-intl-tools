@@ -9,18 +9,19 @@ export function setDefaultLocalizationFile(
 
 export async function getDefaultLocalizationFileName(
   context: vscode.ExtensionContext
-) {
-  const localization = context.globalState.get<string | undefined>(
-    "defaultLocalizationFile"
-  );
+): Promise<string> {
+  const localization = getLocalizationState(context);
 
   if (!localization) {
     await vscode.commands.executeCommand(
       "ember-intl-tools.setDefaultLocalizationFile"
     );
 
-    return await getDefaultLocalizationFileName(context);
+    return getLocalizationState(context) as string;
   } else {
     return localization;
   }
 }
+
+const getLocalizationState = (context: vscode.ExtensionContext) =>
+  context.globalState.get<string | undefined>("defaultLocalizationFile");
